@@ -5,4 +5,4 @@ Perlin Noise</br>
 Демо: http://psy667.ru/perlin_noise
 
 Волновой поиск кратчайшего пути</br>
-Демо: http://psy667.ru/path_finding
+Демо: http://psy667.ru/wave_finding
