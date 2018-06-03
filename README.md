@@ -1,4 +1,3 @@
-#JS Algorithms
 Midpoint Displacement 1D</br>
 Демо: http://psy667.ru/mid_displace/
 
