@@ -1,3 +1,9 @@
 # midpoint-displacement-1d
-Алгоритм используется для создания искусственно-генерируемого ландшафта в компьютерных играх.</br>
+Midpoint Displacement 1D
 Демо: http://psy667.ru/mid_displace/
+
+Perlin Noise
+Демо: http://psy667.ru/perlin_noise
+
+Волновой поиск кратчайшего пути
+Демо: http://psy667.ru/path_finding
