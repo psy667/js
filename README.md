@@ -1,8 +1,8 @@
-Клеточный автомат</br
+Клеточный автомат</br>
 Демо: http://psy667.ru/game-of-life/
 
-Midpoint Displacement 1D</br
-Демо: http://psy667.ru/mid_displac>e/
+Midpoint Displacement 1D</br>
+Демо: http://psy667.ru/mid_displace/
 
 Perlin Noise</br>
 Демо: http://psy667.ru/perlin_noise
