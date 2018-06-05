@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Game of Life</title>
+</head>
+<body>
+	<div id='out'></div>
+	<button onclick='start()' id='start'>START</button>
+	<button onclick='create()'>RESTART</button>
+<!--	<input type='range'>-->
+	<canvas id='bg'></canvas><br>
+	
+	<script src="new js.js"></script>
+	<style>
+		body{
+			background: #222;
+		}
+		canvas{
+			margin: auto;
+			width: 98vw;
+		}
+		button{
+			background: transparent;
+			border: 2px solid lime;
+			height: 30px;
+			display: inline-block;
+			width: 160px;
+			color: lime;
+			font-family: Courier New;
+			font-size: 14px;
+			font-weight: bold;
+		}
+		button:hover{
+			color: #222;
+			background: lime;
+			font-weight: bold;
+		}
+		button:active{
+			opacity: 0.9;
+			outline: none;
+		}
+		button:focus{
+			outline: none;
+		}
+	</style>
+</body>
+</html>
