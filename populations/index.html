@@ -1,0 +1,65 @@
+<html>
+<head>
+	<title>Canvas</title>
+	<link rel='stylesheet' url='style.css'></link>
+</head>
+<body>
+	<div class='menu'>
+		<span id='foodCounter0' style='color: #222a'>0</span>
+		<span id='foodCounter1'style='color: #e22a'>0</span>
+		<span id='foodCounter2' style='color: #22ea'>0</span>
+		<span id='foodCounter3'style='color: #e90a'>0</span>
+		<span id='foodCounter4' style='color: #2eea'>0</span>
+		<span id='foodCounter5'style='color: #e2ea'>0</span>
+		</br>
+		<span id='popCounter0' style='color: #222a'>0</span>
+		<span id='popCounter1'style='color: #e22a'>0</span>
+		<span id='popCounter2' style='color: #22ea'>0</span>
+		<span id='popCounter3'style='color: #e90a'>0</span>
+		<span id='popCounter4' style='color: #2eea'>0</span>
+		<span id='popCounter5'style='color: #e2ea'>0</span>
+	</div>
+	<div class='container'>
+		<canvas id='canvas' width='800' height='800'>
+	</div>
+	<style>
+	body *, body{
+		font-family: Consolas;
+		margin:0;
+		color: #fff;
+		
+	}
+	body{
+		background: #aaa;
+	}
+	canvas{
+		background: #fff;
+		
+		margin: auto;
+		margin-top: 100px;
+	}
+	button{
+		width: 30vw;
+		font-size: 3vw;
+		height: 4vh;
+		margin: 0;
+		padding: 0;
+		border:0;
+		background: #555;
+	}
+	.menu{
+		position: fixed;
+		background: #fff;
+		width: 100vw;
+		z-index: 1000;
+	}
+	span{
+		display: inline-block;
+		padding-left: 3vw;
+		width: 12vw;
+		font-size: 3vw;
+	}
+	</style>
+	<script src='script.js'></script>
+</body>
+</html>
