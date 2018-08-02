@@ -9,9 +9,9 @@ function point(x, y, color){
 }
 
 function move(x,y,lastPoint, color){
-	let shadow = color+'5';
-	point(lastPoint[0], lastPoint[1],'#fff');
-	point(lastPoint[0], lastPoint[1],shadow);
+	point(lastPoint[0], lastPoint[1],'#fff5');
+	let shadow = color+'0';
+	//point(lastPoint[0], lastPoint[1],shadow);
 	point(lastPoint[0]+x, lastPoint[1]+y, color);
 	if(+x != x){
 		console.log(x,y)
@@ -88,7 +88,7 @@ class Ant{
 			this.eat(popProp[this.population].birthCost);
 		}
 		
-		if(this.tick % 100 === 0){
+		if(this.tick % 10 === 0){
 			
 			this.eat(popProp[this.population].eatRate);
 				
@@ -115,24 +115,40 @@ class Ant{
 			}
 			if(range < 1){
 				if(popProp[this.population].color == '#e22'){
-					//foods[3]-=popProp[this.population].eatQuickness/10;
+				
+					let quickness = popProp[this.population].eatQuickness;
 					
 					for(let i = 0; i<ants.length; i++){
 						if(ants[i].lastPoint[0] == this.target[0] && ants[i].lastPoint[1] == this.target[1]){
 							ants[i].tick+=20000;
+							
+							if(this.target[2] < popProp[this.population].eatQuickness){
+							quickness = this.target[2];
+					}
+					
+							this.target[2]-=quickness;
+							foods[this.population]+=Math.round(quickness)
 						}
 					}
-					this.target[2]-=popProp[this.population].eatQuickness*1000;
-					foods[this.population]+=popProp[this.population].eatQuickness;
+					
+					
 				}
 				
 				else{
-					this.target[2]-=popProp[this.population].eatQuickness;
-					foods[this.population]+=popProp[this.population].eatQuickness;
+					let quickness = popProp[this.population].eatQuickness;
+		
+					if(this.target[2] < popProp[this.population].eatQuickness){
+						quickness = this.target[2];
+					}
+					
+					this.target[2]-=quickness;
+					foods[this.population]+=quickness
+					
+					
 				}
 				//foodCounters[this.population].innerHTML = foods[this.population];
 			}
-			if(this.target[2] < 0){
+			if(this.target[2] < 1){
 				targets[this.population] = null;
 				point(this.target[0],this.target[1],'#fff');
 			}	
@@ -147,6 +163,23 @@ class Ant{
 		
 		
 		for(let i = 0; i<popProp[this.population].foodType.length; i++){
+			//console.log(popProp[this.population].foodType[i])
+			if(popProp[this.population].foodType[i] && this.population != 1){
+				let x = popProp[this.population].foodType[i][0];
+				let y = popProp[this.population].foodType[i][1];
+				
+				if(x == this.lastPoint[0]+this.x && y == this.lastPoint[1]+this.y){
+					let quickness = popProp[this.population].eatQuickness;
+					if(popProp[this.population].foodType[i][2] < popProp[this.population].eatQuickness){
+						quickness = popProp[this.population].foodType[i][2];
+					}
+					
+					popProp[this.population].foodType[i][2]-=quickness;
+					foods[this.population]+=quickness
+					//console.log(this.population, quickness)
+					targets[this.population] = null;
+				}
+			}
 			if(!this.target){
 			
 				
@@ -200,69 +233,69 @@ let water = [];
 let died = [];
 let meat = [];
 let populations = [];
-
-let popProp = [
-{ 						//Ïàäàëüùèêè
-	eatRate: 10, 			//Ñêîëüêî ïîòðåáëÿåò ýíåðãèè çà îäèí ïðèåì ïèùè
-	foodType: died,			//Òèï ïèùè
-	rangeVisible: 10,		//Íà êàêîì ðàññòîÿíèè çàìå÷àåò ïèùó
-	birthCost: 2000,		//Ñêîëüêî ýíåðãèè òðåáóåòñÿ äëÿ ðàçìîíîæåíèÿ
-	duration: 20000,		//Ïðîäîëæèòåëüíîñòü æèçíè
-	step: 6,				//Äàëüíîñòü øàãà
-	color: '#444',			//Öâåò
-	eatQuickness: 500,		//Ñêîðîñòü ïîåäàíèÿ
-	deadCapacity: 2000,		//Ýíåðãåòè÷åñêàÿ öåííîñòü òðóïà
+let popProp
+popProp = [
+{ 						//ÐŸÐ°Ð´Ð°Ð»ÑŒÑ‰Ð¸ÐºÐ¸
+	eatRate: 5, 			//Ð¡ÐºÐ¾Ð»ÑŒÐºÐ¾ Ð¿Ð¾Ñ‚Ñ€ÐµÐ±Ð»ÑÐµÑ‚ ÑÐ½ÐµÑ€Ð³Ð¸Ð¸ Ð·Ð° Ð¾Ð´Ð¸Ð½ Ð¿Ñ€Ð¸ÐµÐ¼ Ð¿Ð¸Ñ‰Ð¸
+	foodType: died,			//Ð¢Ð¸Ð¿ Ð¿Ð¸Ñ‰Ð¸
+	rangeVisible: 20,		//ÐÐ° ÐºÐ°ÐºÐ¾Ð¼ Ñ€Ð°ÑÑÑ‚Ð¾ÑÐ½Ð¸Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°ÐµÑ‚ Ð¿Ð¸Ñ‰Ñƒ
+	birthCost: 2000,		//Ð¡ÐºÐ¾Ð»ÑŒÐºÐ¾ ÑÐ½ÐµÑ€Ð³Ð¸Ð¸ Ñ‚Ñ€ÐµÐ±ÑƒÐµÑ‚ÑÑ Ð´Ð»Ñ Ñ€Ð°Ð·Ð¼Ð¾Ð½Ð¾Ð¶ÐµÐ½Ð¸Ñ
+	duration: 20000,		//ÐŸÑ€Ð¾Ð´Ð¾Ð»Ð¶Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ð¾ÑÑ‚ÑŒ Ð¶Ð¸Ð·Ð½Ð¸
+	step: 3,				//Ð”Ð°Ð»ÑŒÐ½Ð¾ÑÑ‚ÑŒ ÑˆÐ°Ð³Ð°
+	color: '#444',			//Ð¦Ð²ÐµÑ‚
+	eatQuickness: 5000,		//Ð¡ÐºÐ¾Ñ€Ð¾ÑÑ‚ÑŒ Ð¿Ð¾ÐµÐ´Ð°Ð½Ð¸Ñ
+	deadCapacity: 500,		//Ð­Ð½ÐµÑ€Ð³ÐµÑ‚Ð¸Ñ‡ÐµÑÐºÐ°Ñ Ñ†ÐµÐ½Ð½Ð¾ÑÑ‚ÑŒ Ñ‚Ñ€ÑƒÐ¿Ð°
 },
-{						//Õèùíèê
-	eatRate: 50,
+{						//Ð¥Ð¸Ñ‰Ð½Ð¸Ðº
+	eatRate: 20,
 	foodType: meat,
-	rangeVisible: 15,
-	birthCost: 7000,
-	duration: 20000,
-	step: 2,
+	rangeVisible: 10,
+	birthCost: 4000,
+	duration: 40000,
+	step: 1,
 	color: '#e22',
-	eatQuickness: 5000,
+	eatQuickness: 4000,
 	deadCapacity: 3000,
 },
 {
-	eatRate: 15,		//Ðûáà
+	eatRate: 10,		//Ð Ñ‹Ð±Ð°
 	foodType: water,
-	rangeVisible: 20,
+	rangeVisible: 5,
+	birthCost: 500,
+	duration: 20000,
+	step: 1,
+	color: '#22e',
+	eatQuickness: 5000,
+	deadCapacity: 500,
+},
+{
+	eatRate: 8,		//ÐœÐµÐ»ÐºÐ¾Ðµ Ñ‚Ñ€Ð°Ð²Ð¾ÑÐ´Ð½Ð¾Ðµ
+	foodType: plants,
+	rangeVisible: 5,
+	birthCost: 100,
+	duration: 7000,
+	step: 2,
+	color: '#e90',
+	eatQuickness: 1500,
+	deadCapacity: 50,
+},
+{
+	eatRate: 3,		//Ð Ñ‹Ð±Ð°
+	foodType: water,
+	rangeVisible: 30,
 	birthCost: 100,
 	duration: 20000,
-	step: 6,
-	color: '#22e',
-	eatQuickness: 50,
-	deadCapacity: 2000,
-},
-{
-	eatRate: 5,		//Ìåëêîå òðàâîÿäíîå
-	foodType: plants,
-	rangeVisible: 30,
-	birthCost: 10,
-	duration: 20000,
-	step: 4,
-	color: '#e90',
-	eatQuickness: 50,
-	deadCapacity: 200,
-},
-{
-	eatRate: 10,		//Ðûáà
-	foodType: water,
-	rangeVisible: 10,
-	birthCost: 50,
-	duration: 20000,
-	step: 10,
+	step: 2,
 	color: '#2ee',
-	eatQuickness: 100,
-	deadCapacity: 200,
+	eatQuickness: 1000,
+	deadCapacity: 100,
 },
 {
-	eatRate: 400,		//Òðàâîÿäíûé äèíîçàâð
+	eatRate: 40,		//Ð¢Ñ€Ð°Ð²Ð¾ÑÐ´Ð½Ñ‹Ð¹ Ð´Ð¸Ð½Ð¾Ð·Ð°Ð²Ñ€
 	foodType: plants,
-	rangeVisible: 2,
-	birthCost: 25000,
-	duration: 60000,
+	rangeVisible: 20,
+	birthCost: 15000,
+	duration: 80000,
 	step: 1,
 	color: '#e2e',
 	eatQuickness: 2000,
@@ -283,30 +316,37 @@ function add(population, coord){
 	}
 }
 
-for(let i = 0; i< 512; i++){
-	let x = random(50,150);
-	let y = random(50, 150);
-	if(getRange(x,y,100,100) < 50){
-		setPlant(x, y, random(0,1000));
+for(let i = 0; i< 5000; i++){
+	let x = random(0,200);
+	let y = random(0, 200);
+	if(random(0,1) == 0){
+		if(getRange(x,y,100,100) < random(60,70)){
+			setPlant(x, y, random(0,1000));
+		}
+		else{
+			setWater(x,y, random(1000, 2000));
+		}
 	}
 }
 
-setInterval(function(){//ãëàâíûé öèêë
+setInterval(function(){//Ð³Ð»Ð°Ð²Ð½Ñ‹Ð¹ Ñ†Ð¸ÐºÐ»
 	let x = random(0,200);
 	let y = random(0, 200);
-	if(getRange(x,y,100,100) < 80){
-		setPlant(x, y, random(0,1000));
+	if(random(0,1) == 0){
+		if(getRange(x,y,100,100) < random(60,70)){
+			setPlant(x, y, random(0,5000));
+		}
+		else{
+			setWater(x,y, random(2000, 3000));
+		}
 	}
-	else{
-		setWater(x,y, random(0, 1000));
-	}
-	
-	ctx.fillStyle = '#ffffff09';
+	ctx.fillStyle = '#ffffff08';
 	ctx.fillRect(0,0,800,800);
 	
 	for(let i = 0; i<plants.length; i++){
 		if(plants[i]){
 			point(plants[i][0],plants[i][1],'#55dd55');
+
 		}
 	}
 	
@@ -330,13 +370,13 @@ setInterval(function(){//ãëàâíûé öèêë
 		meat.shift();
 	}
 	for(let i = 0; i<ants.length; i++){
-		if(ants[i].alive && ants[i].population === 3){
-			meat.push(ants[i].lastPoint.concat(ants[i].tick/100))
+		if(ants[i].alive && ants[i].population != 1 && ants[i].population != 0){
+			meat.push(ants[i].lastPoint.concat(ants[i].tick))
 		}
 	}
 	
 	
-},50);
+},100);
 
 let coord = [100,100];
 for(let i = 0; i< 5; i++){
@@ -362,7 +402,7 @@ setInterval(function(){
 	populations.forEach(function(item, i){
 		if(item == 0){
 		let n = new Date;
-		console.log(`ÐŸÐ¾Ð¿ÑƒÐ»ÑÑ†Ð¸Ñ ${i} Ð²Ñ‹Ð¼ÐµÑ€Ð»Ð° \n${n}`);
+		console.log(`Ð ÑŸÐ Ñ•Ð Ñ—Ð¡Ñ“Ð Â»Ð¡ÐÐ¡â€ Ð Ñ‘Ð¡Ð ${i} Ð Ð†Ð¡â€¹Ð Ñ˜Ð ÂµÐ¡Ð‚Ð Â»Ð Â° \n${n}`);
 		populations[i] = -1;
 		}
 		
