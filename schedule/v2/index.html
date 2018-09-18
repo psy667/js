@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <title>Расписание занятий</title>
+</head>
+<body >
+  <div id='app'>
+  <header>
+    <select class="group" name="" >
+      <option>ИН-171</option>
+    </select>
+
+    <select class="subGroup" v-model='subGroup'>
+      <option value='subGroup1'>Подгруппа 1</option>
+      <option value='subGroup2'>Подгруппа 2</option>
+    </select>
+
+    <div class='date'>{{ date }}</div>
+    <select class="parity" v-model='parity'>
+      <option value='numerator'>Числитель</option>
+      <option value='denominator'>Знаменатель</option>
+    </select>
+
+  </header>
+  <main>
+    <div class='timer'>{{ timer }}</div>
+    <div class='block' v-for="day in schedule" :id='day.id'>
+      <h1>{{ day.name }}</h1>
+
+      <ol>
+        <li v-for='(subject, index) in day.classes'  class='subject'>
+          <span class='subject__time' >{{ timing[day.id][index][0]+' '+timing[day.id][index][1] }}</span>
+          <div class="subject__container">
+            <span class='subject__name'>{{ subject.name }}</span>
+            <span class='subject__type'>{{ subject.type }}</span>
+          </div>
+          <span class='subject__room'>{{ subject.room }}</span>
+        </li>
+        <div class='subject no-classes' v-if='day.classes < 1'>Занятий нет<div>
+      </ol>
+    </div>
+  </main>
+  <a class='author' href='https://vk.com/psy667'>by Arseniy Oguzov</a>
+</div>
+  <script src='script.js'></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "name": "Расписание пар",
+  "short_name": "Расписание",
+  "lang": "ru-RU",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#9080de",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
