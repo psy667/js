@@ -2,7 +2,7 @@
   "name": "Расписание пар",
   "short_name": "Расписание",
   "lang": "ru-RU",
-  "start_url": "/",
+  "start_url": "/js/schedule",
   "display": "standalone",
   "theme_color": "#9080de",
   "icons": [
